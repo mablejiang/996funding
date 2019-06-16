@@ -1,165 +1,145 @@
+# Designing a cryptocurrency donation model for the Anti-996 movement
 
-# 为996设计一个虚拟货币捐款模型
+## Why do we create such a model
 
+996.icu represents a type of new social organization – self-organized, open-sourced, anonymous, and decentralized. It’s a kind of collaboration that formed for a common goal (common within a certain period of time). Such reckless online organizations indeed made quite a bit of progress and received huge impact via github, slack, and other platforms, they still have their own weak spot. 
 
+** This weak spot is funding.** Anything gets complicated when it comes to money. Money could pollute the originally simple cause, but without money, many things could only stay on paper or PR without actions – no real problems could be solved. Just think about it, any worker that wants to sue a company that runs with 996-system per the Labor Law, he/she could hardly afford the cost for the attorney, not to mention the opportunity cost that this person could not land a job anywhere later. Therefore, certain amount of economic incentives is reasonable, especially to encourage the avant gardes. 
 
-## 为什么要做这样一个模型
+So very few real-world options are left to us:
+1.	**Founding an NGO**, abide the rules for NGO in terms of receiving funding, auditing, and publishing financials.
+2.	Founder’s **private account**, such as Paypal, Patron, or bank account.
+3.	**Cryptocurrency Address**, of which the private key is controlled by the fundraiser.
 
-996.ICU代表着一类新型社会组织 — 自发，开源，匿名，去中心，临时为某一共同目标迅速组成的协作组织。这样势不可挡的线上组织虽然利用github，stack等平台工具迅速取得了很多进展，获得了巨大的影响力，但依然有它的软肋。
+For temporary movements like Anti-996 that requires anonymity and timeliness, the NGO option is too costly and not efficient enough. The set-up will not complete before the media’s attention and public’s willingness to donate fade away. 
 
-**这个软肋就是资金。**一旦涉及到资金，问题就变得复杂。钱让这个简单的组织变得不纯粹，但没有钱，很多事情都只能是媒体宣传或纸上谈兵，难以解决真实的问题。说句实话，现在哪个普通员工按照劳动法跟996的公司打个官司，都不一定出得起诉讼费，更不要说还搭上之后找不到工作的隐性成本。所以，一定的经济激励是合理的，尤其对于鼓励先行者。
+For option 2, there are two types of risks. One is that the founder’s own credit risk. If the financial data is not transparent enough, the community could easily suffer from internal distrust or even fight. The other is that the fundraiser ** to some extent would have to expose his/her identity**. The government could easily go after you. The internet surfers could also do the same. 
 
-现实世界留给我们的选择十分有限：
+Option 3 guarantees the anonymity of donators and fundraisers, with completely transparent financial data. Everyone could check how much money is raised and where it is spent. However, given that the private key needs to be held in one person, the custody part is still centralized. The decision on where the money go and how much it is spent, is all by a centralized party – there is always room for fraud and cheating in the system even after introducing a voting mechanism.
 
-1. **成立海外NGO组织**，并且严格遵守NGO的收款，审计规定，定期公开财务数据。
-2. 创始人的**私人账号**，比如paypal, patron, 海外银行账号。
-3. **虚拟货币地址**，私钥掌握在筹款者的手中。
+Is there a way to find a more reasonable donation model, based on the option 3, by revising the economy design? 
 
-针对996这样匿名，时效性又很重要的“临时组织”，NGO的成本是极高的，而且需要的时间太长，根本跟不上媒体关注和主动捐款意愿的速度。
+Our goals are:
+-	Transparent financial data
+-	Asset security
+-	Usage of donation traceable and democratized
+-	Support anonymous donating and receiving
 
-对于方法2，风险有两个，一个是创始人本身的信用风险。如果财务数据不够透明，很容易引起社区内部的不信任甚至互撕，因为开源项目的贡献是大家的，而钱只打给了一个人。第二是接受者**必须一定程度地暴露自己的身份**。如果官方想查到你是谁，那是轻而易举的，人肉搜索也不在话下。
+Without a perfect solution, we aim to get infinitely close towards the goals above, and try to minimize (rather than diminish) the risk from centralization. 
 
-方法3的好处是可以保证捐款人和被捐款人的完全匿名，而且财务数据完全透明，大家可以看到从开始募集到的金额以及已经花费的数目和去处。但是，因为私钥必须掌握在一个特定的人手中，所以资产托管还是中心化的。收到捐款，决定捐款去向，都是中心化决定的，就算引入投票机制也无法避免买票，作假等行为，做不到完全公平透明。
+Inspired by some schools of thoughts in cryptocurrency and blockchain, we designed a simple economy model that could be realized in reality. 
 
-有没有可能在相对更好的方法3的基础上，通过改进经济机制，设计出更合理的捐款模型呢？
+## The simplest design
 
-我们的目标是：
-— 财务公开透明
-— 资金安全
-— 捐款用途尽量可追踪，民主化
-— 支持小额，分散的捐款
-— 支持匿名收款和捐款
+Via Bancor Protocol, we can easily realize a donation system that allows exchange / swap at anytime. Regarding Bancor, please see https://about.bancor.network/protocol/. 
 
-在无法提出完美解决方案的阶段下，我们可以无限接近上述目标，并尽量减小，而不是消除中心化的风险。
+For now, let’s abstract the model:
 
-受到许多虚拟货币和区块链领域的思想启发，我们设计了一个简单的经济模型，并尽量做到技术上的可实现。
-
-
-
-
-## 最简单的设计
-
-利用bancor协议，我们可以轻松实现一个可自由兑换的捐款系统。对于bancor模型和实现方式，我们接下来具体解释，详细见[BES内部深度 - Bancor算法及IBO的未来](https://mp.weixin.qq.com/s/Cr33JNFLdY6YJjiw4yhcmg)。先来抽象化一下模型：
-
-* **发行代币**：在以太坊上发行一个新的ERC20代币，例如叫996.token
-
-* **生成账户**：利用Bancor协议生成一个连接器（connector）
-
-* **确定数量**：确定bancor算法的重要参数，存入一定量的ETH进入储备金池（connector balance），存入一定量的996.token供给（supply)
+***Issuance of tokens**: issue a ERC20 token on Ethereum – e.g. 996.token
+***Generate an account**: generate a connector using Bancor Protocol
+***Confirm the number of tokens**: decide on the important metrics for the Bancor algorithm, deposit a certain amount of ETH into the connector balance, and deposit a certain amount supply of 996.tokens. 
 
 ![](https://github.com/yujadehou/996funding/blob/master/image/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-04-22%20%E4%B8%8B%E5%8D%885.45.14.png)
 
-Bancor协议可以实现更多复杂的数学设计及应用场景。在这里，我们设定CW=100%=1，以保证捐款是一个没有投机的行为。那么存入储备金池的ETH，实际上就是在给996.token定价。
+Bancor Protocol can realize a lot more complicated mathematical design and application scenarios. Here we set the Connector Weight =100% =1 in order to ensure that the donation has no speculation involved. As a result, the amount of ETH being deposited into the connector balance essentially sets the price for the 996.token.
 
-**但请注意，这个定价是没有实际意义的，因为CW=1，在连接器没有变动的情况下，价格永远维持不变，只是一个纯粹的数字。**连接器变化的情况，见下文讨论，但只会让定价变低，不会变高。
+**Please note that this price is not meaningful, as CW=1, when there is no change in the connector, the price will maintain the same.** The situations that the connector changes will be discussed shortly – but the price will only go lower, not the other way.
 
-例如，我们存入连接器中的ETH是100个，而996.token有100万，CW为1，那么代币价格就为price = 100/1000000 = 0.00001ETH 
+For example, the number of ETH we deposit into the connector is 100, and there are 1M 996.tokens. When CW=1, the token price equals to price = 100/1000000 = 0.00001ETH
 
-为什么设定CW=1呢？因为只有在CW=1的情况下，随着捐款数量（supply）的变化，token的价格才会保持不变。
+Why do we set CW=1? Only when CW=1, the token price will not change as the donation supply changes. 
 
 ![](https://github.com/yujadehou/996funding/blob/master/image/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-04-22%20%E4%B8%8B%E5%8D%885.45.24.png)
 
+- **Receiving Donation**: Donators deposit their ETH into the connector balance, and exchange certain amount of 996.tokens by the proportion calculated above. After this step, here we have the biggest difference from a traditional donation model:
 
-* **接受捐款**：捐款者直接把ETH存入连接器中，并以上面参数设定的比例兑换处996的token。现在，与传统的捐款模型最大的区别来了：
+- **You can exchange your 996.tokens at anytime to get back a part of the donation.** Given the connector is a counterparty that allows free exchange at moment, the donator could exchange back his/her ETH with his/her tokens at **the original price or a lower price.** This is an additional option compared to the traditional donation model. 
 
-**你随时可以通过兑换token取回部分捐款。**由于连接器是一个随时自由兑换的交易对手，你可以在任何时候用自己手中的token**以原价格或更低的价格**兑换回ETH。这是一个比传统捐款多出的选择。
+- **Taking away the donation**:
+If the manager takes out the donation in batches without a set schedule, **then each time after some money being taken out, the token price will be impacted / diluted**. Yet, since our scenario is donation rather than investment, price has minimal impact on donator. 
 
-* **取走捐款**：
+There are two ways to take out the donation: 
+ 
+1.	Taking out ETH from the connector balance directly
+2.	Issue more tokens into the connector balance and exchange the ETH out with the newly issued tokens
+Therefore, either the ETH in the connector balance decrease, or the tokens increase and are used to exchange for ETH. Either way has the same impact:
 
-如果管理者取走捐款是不定期，分批的，**那么每一次取走都会影响token的定价使其被稀释**。但由于我们的场景是捐款而不是投资，价格对捐款者的影响很小。取走捐款的方式有两种：
+1.	Management takes out part of the donation
+2.	The price of 996.token being diluted
 
-1. 直接部分取出连接器（也就是账户）中的ETH。
-2. 增发token放入连接器，再用token自由兑换ETH并取出 
+In other words, taking out 20% ETH funding means the same as token price being diluted to 80% of the original price.
 
-所以，要么储备金ETH变少，要么token增多并被兑换。他们的影响是相同的：
+Given this model, the token price compared to the original price will only be lower. The speed of price dropping will be determined by the speed of fund being taken out, rather than by anything else like the speed of donation, etc., As far as the connector balance still has some ETH inside, donators could retrieve part of their donation (with a diluted price)
 
-1. 管理者取出了部分资金
-2. 996.token的价格被稀释
-例如，取走20%的ETH资金，那么token的价格也会被稀释到80%
+This connector, also a public key on Ethereum, by now becomes a donation account. All the time when and source where donation is made and spent will be publicly recorded on the ledger. As far as the fund is not retrieved by the management, donators can top down more or withdraw part of the original ETH. For example, when one sees that the donation is accumulated at a high speed and believes the funding is sufficient for the project, one can takes back the fund that he/she donated early on.
 
-也就是说，token的定价与最开始相比，只可能越来越低。这个速度会被用款速度决定，而不受捐款速度影响。只要资金池没有被全部取出，捐款者就还是可以取回部分捐款，但可能是以被稀释的价格。
+_What are the advantages of this model?_
 
-至此，这个连接器，也是一个以太坊上的公钥地址，也就成了“捐款账户”。所有的捐款时间和来源，支出时间和去向都会透明地记录在这个账簿上。只要资金还没有被管理者取走，捐款者也可以在任何时候追加或部分取回捐款。例如，在看到短时间内捐款迅速积累，觉得社区资金已经充足的时候，可以拿回早期捐款。
+-	**Good for decentralized / small-check-size donation_**
+-	**Can keep anonymity all the time**
+-	**Donators could have stronger supervision over the management**: if the management takes away all the money in a short period of time and even disappear, then as soon as this happen the donators who join later will be able to see this and stop donating given the distrust. On the other hand, if the management utilize the funding properly and reasonably, donators can always top down further or withdraw anytime they want. 
+-	**Participation of governance**: in our current model, there’s no actual function for the 996.token. The token is more like a “receipt”. Yet, if we introduce on-chain governance, 996.token can be used for voting. For example, the core members have 80% whereas the donators have 20%, then they could together vote on a big decision or determine what to spend the proceeds for – the decision could only be effective when the vote reaches 51%+.
+-	**Easy to fork**: given that any open source projects are open for anyone to contribute and collaborate, the initial proposer does not necessarily need to be the core member of the community, nor does this person need to be the fundraiser or fund manager. A big advantage of cryptocurrency model is that it could be easily forked. Whenever the community members or donators have doubt about things like the use of proceeds, and the problem cannot be solved by discussion, they could choose to fork and start a new donation address. As long as someone has the ability to win the majority’s trust, there could be multiple centers in one community, and this even lowers the concentration risk or the probability of black swan event. 
 
+## More specific discussion
 
-_这个模型是好处是什么呢？_
+The model we discussed above is in its simplest form. Almost no mathematical or technical challenge exists in that one. How about the more complex and specific functions?
 
-— **适合小额，分散的捐款**
+*Can we introduce a reward mechanism?
 
-— **可以始终保持匿名**
+Above, in order to protect the “purity” of a not-for-profit project, we intentionally avoided the possibility of speculation. However, as Bancor Protocol is a general model that could be used for any kind of fundraising, value discovery can definitely be introduced into the system. 
 
-— **捐款者对管理者的监督更强**：如果管理者在短时间内拿走所有的钱甚至跑路，那后来的捐款者会看到，对管理者的信任降低，停止捐款。而如果管理者以某种程度合理，公开地运用捐款，捐款者也可以在任何时候追加或部分取回捐款。例如，在看到短时间内捐款迅速积累，觉得社区资金已经充足的时候，可以拿回早期捐款。
+When CW<100%, the connector becomes a leverage. As the supply of donation increases, the token price will be higher and higher; as more people sell out their tokens, the price falls down again. 
 
-—  **参与治理**：现在的模型中，996.token本身是没有实际作用的，更像一个“收据”。但是，如果引入token的社区治理，996.token就可以用来投票。例如核心社区成员手中的token有80%，捐款者20%，可以联合起来对重大决议，或用款项目进行投票，超过51%才能拨款。
+For instance, let’s say there is a special program under the Anti-996 Movement that needs fundraising. The initiator is A, the community members are B, and the donators are C. At the very beginning, A contributes 1 ETH to exchange for 100 996.tokens. C1 contributes 1ETH and gets 80 996.tokens. A then organized 10 Bs to kick off this project – each B receives 5 tokens (i.e. all Bs together receive 50 tokens). C2 continues to make contribution of 3ETH and receives 120 996.tokens. At this moment, A can exchange the 50 tokens he/she has left for the initial ETH he/she contributes, and so can B. 
 
-— **便于分叉**：由于开源项目是开放式贡献的，发起人并不代表一定会一直是社区核心成员，也不一定是募资的发起人和管理人。利用虚拟货币模型的优点是可以分叉。一旦社区成员或捐款者对于资金使用等问题有质疑，不能解决的，可以直接分叉，开启一个新的捐款地址。只要你有能力让别人相信你，社区甚至可以有多个“中心”，规避了单一的黑天鹅风险。
-
-
-
-
-## 更具体的探讨
-
-上述是最简单的模型，几乎没有任何数学和技术上的挑战。其他更复杂的功能或更具体的讨论呢？
-
-* 是否能引入奖励机制？
-
-在这里，为了保证项目的“纯洁性”，我们从技术设计上规避了投机的可能。但实际上由于bancor协议本身是一个为项目募资的通用模型，所以是可能实现价格发现机制的。
-
-当CW<100%的时候，连接器的定价变成了杠杆机制，随着捐款（supply）的增多，价格会越来越高。而如果更多人卖出，supply下降，价格会再次回落。
-
-举个栗子，假设996目前有一个特殊的项目需要捐款。项目发起人A，社区参与者B，捐款者C。A自己在最早期投入1个ETH，获得100个996.token。C1投入1ETH获得80个996.token。A组织了10位B开始了这项活动，每位志愿者分得5个token，B总共分得50个token。C2继续为活动赞助了3 ETH获得120个token。此时，A可以兑现手中剩余的token换回最开始投入的1ETH，B也可以选择兑换。
 ![](https://github.com/yujadehou/996funding/blob/master/image/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-04-22%20%E4%B8%8B%E5%8D%885.45.33.png)
 
-曲线也可以是这样的：
-
+The curve could also look like this:
 ![](https://github.com/yujadehou/996funding/blob/master/image/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-04-22%20%E4%B8%8B%E5%8D%885.45.39.png)
-右图的二级函数既能激励早期参与者和捐款者，又能避免后来者的投机心理。
 
-这种更复杂的设计的好处是可以让整个社区不单纯依赖外部捐款，而变成了自组织，早期贡献者和捐款者都得到了激励。坏处是复杂，而且可能引入动机不纯的投机行为，污染整个社区。
+The parabolic function on the left can both incentivize the early participants and donators, and avoid speculation from the late-comers.
 
-鉴于996是一个本身就不成熟的实验性组织，**目前不建议引入这种在行为动机，经济学设计，规则设计都过于复杂的机制**，但开开脑洞总是好的。详见[BES 内部深度 - 什么是联合曲线模型](https://mp.weixin.qq.com/s/uFihdviMm6O30GAvzkwdzw)
+Such more sophisticated  design can essentially turn the community into a DAO by not relying completely on external donation. The early contributors and donators all receive certain rewards. The downside is the complication itself – and may introduce more speculative behaviors into the system that contaminates the community. 
 
+Given that Anti-996 Campaign is still far from being mature, **we do not recommend such incentive to be introduced such a mechanism that is way too complicated in terms of the economic design, rules, and governance.** Still, it’s always good to brainstorm. 
 
-* 如何避免大公司通过钱来控制组织？
+* How do we avoid large corporation to 
 
-刚才说到，token可以用来投票，作为线上社区治理的工具。那如果大公司，比如在这次事件中备受争议的BAT，通过匿名方式购买大量token，影响投票结果呢？
+We just mentioned that the tokens could be used for voting as a tool of online community governance. What if large companies, (e.g. the Chinese tech giants that are involved in the Anti-996 Campaigns), control a large amount of tokens by buying anonymously and attempt to manipulate the voting result? 
 
-我认为这个是可以通过设计或分叉来解决的。从设计上，token不仅可以通过兑换获得，也可以中心化分配到核心贡献者手上。前提是透明，有预期地数量分配，并不随意修改规则。
+We believe that this could also be solved by some more detailed design or by forking. Technically, tokens do not necessarily need to be all exchanged by ETH donation – they could also be distributed to the core contributors in a centralized way, as far as the procedure is transparent and fair and no rule could be modified by one single party easily.
 
-从分叉上，如果大公司出于邪恶目的垄断了捐款和票池，那么社区完全可以分叉出新的投票地址和bancor曲线。因为所有信息都是对称的，公平靠整个社区的监督和投票来维持。
+In terms of forking, if the large companies, out of evil purposes, monopolize the donation and voting pool, the community can always fork a new voting address and bancor curve. In this system, all information is symmetric, and the fairness could be sustained by the supervision and governance of the whole community.
 
+* Can we use Bitcoin or other currency?
 
-* 能否采用比特币或其他货币？
+Given that Bitcoin is not turing-complete, the Bancor Protocol as of now could only be realized on ETH or EOS. These two chains also have relatively mature infrastructure built around. If someone is not fully content with the Bancor Protocol, he/she could always fork a modified version, given the code is not complicated.
 
-由于比特币没有智能合约，目前上述bancor协议只能在ETH或EOS上实现，并且已经有相对成熟的基础设施。如果对协议本身不满意，也可以自己分叉一个新的bancor，反正代码很简单。
+Still, if the community would like to donate with Bitcoin, or exchange the ETH received into some stablecoins, they can use some other routes. As the most widely-used anonymous donation way is Bitcoin, the community members can also connect to the model we design here by swapping twice.
 
-但如果社区想接受比特币捐款，或者希望把接收到的ETH先兑换成价值更稳定的代币，可以采用一些更迂回的方法，或直接使用USDT等稳定币。虽然最常见的匿名捐款目前还是比特币，但社区成员也可以通过二次兑换等折中的方法最后连接到我们目前的智能合约捐款模型。
+* How about that the private key is only controlled by one person?
 
+In order to take out the donation from the Connector Balance, one person with the private key will need to go through the procedures. Yet, the private key can only controlled by one person – so this will become inevitably centralized. 
 
-* 如何解决private key的私有问题？
+Knowing that we are not to design a perfect model, we believe that the whole procedure is already more transparent, more supervised, and more easily to be forked. 
 
-刚才提到连接器中取走捐款，必须由掌握私钥的人进行，而私钥（private key）只能掌握在一个人手里。这就注定是中心化的。
+Still, mechanically we should think about this problem in more creative ways. For example, if the Anti-996 community does not want to grow into a long-term NGO, but rather only want donation at certain time for certain purpose, we can totally turn the whole model into a single-budget-project. 
 
-但是，我们的目的是为了和现有的前文提到的1，2，3种选择相比，而不是一个完美的模型。虽然私钥是中心化的，但整个过程已经比传统的捐款更透明，更受监督，也更容易分叉。
+Let’s say A is an employee that sues his/her company somewhere and would like to raise funds for his attorney fees; B is an engineer, and would like to store all the 996-related evidence onto various clouds, or build a server himself/herself; C is a programmer / product manager that would like to organize a team to turn the model we describe above into a product. 
 
-不过，在机制上确实可以更有趣地帮助解决这个问题。例如，如果996社区本来就不希望成为一个长期运营的NGO组织，而只是在有明确目的的时候需要捐款，那我们可以把上述整个模型作为单个预算项目发起。
+Then each of them could initiate a fundraising application – by application we mean a standalone Bancor curve and a public key address. The private keys are each controlled by the initiaters. These initiaters can not only set the parameters for their own model, but also set a different upper limit of funding that suits their own need – to ensure the donation is small, decentralized, and secure. The community management is only to audit the authenticity of the budget and endorse for the project / call for donation. The donators can choose to support any of the initiatives that they think meaningful, and to participate the community governance as they wish. 
 
-假如A是一个在某地起诉公司的员工，希望募集他的律师费；B是工程师，希望把996的证据付费存储在各个云上，或自建服务器；C是码农，希望组织团队把我们文章的经济模型做成可以使用的产品。
+They the whole community becomes an DAO rather than an NGO that relies on external funding. 
 
-那么他们可以分别发起捐款申请，而每个申请是一个单独的bancor曲线和公钥地址，私钥在发起人手中。他们不仅可以设定适合自己的曲线参数，还能设定捐款上限，保证小型，分散，安全。社区管理者只是帮助审核预算的真实性，和信用背书，号召捐款。捐款者可以选择支持他们认为有意义的用途，更多地参与社区治理。
+## Can we be more imaginative?
 
-这样，整个社区就更像一个自治组织（DAO），而不是依赖外部捐款的NGO。
+Okay now everyone knows that we are not only designing a model for the Anti-996 Campaign but rather **a cryptocurrency-based donation model that works for any not-for-profit - not just Anti-996**.
 
+Of course, funding is not the only challenge that they face, but this problem is prevalent enough that pretty much most NGOs are facing. On the other hand, as cryptocurrency developed up till today, one of the largest problems still is that there is no application scenarios. There are so many experiments and products done and created for investment, speculation, and trading, but none of those really proved itself that what concrete value was brought to the world, including bitcoin. Or, we’d rather say, more as inspiration rather than realization. 
 
+Some friends were asking me – 996, NGO, and Blockchain – these circles sound quite unrelated and may not be able to understand each other. Nevertheless, isn’t this also the beauty of an open-source world? What if someone that happens to cross all the fields someday sees this, and a miracle happens?
 
-
-## 还能更有想象力吗
-
-好了，现在我们的意图已经十分明显：**建立一个适合于所有非营利组织的虚拟货币捐款模型**，而非只适用于996。
-
-资金并不是他们唯一的困境，但这个问题足够通用，足够普遍。另外一方面，虚拟货币发展到今天，最大的问题依然是没有应用场景。已经有无数的实验和产品发生在投资，投机，交易领域，但就算包括比特币在内，虚拟货币也没有证明自己给世界带来什么实在的价值。或者说，启发大于实现。
-
-有朋友提醒我，996，NGO，区块链是几个毫不相干的圈子，之间并不互相理解，难以产生什么交集。但我觉得这不也正是开源世界的魅力，万一哪天有人觉得有趣，就实现了呢。
 
 
 
