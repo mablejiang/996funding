@@ -2,9 +2,9 @@
 
 ## Why do we create such a model
 
-996.icu represents a type of new social organization – self-organized, open-sourced, anonymous, and decentralized. It’s a kind of collaboration that formed for a common goal (common within a certain period of time). Such reckless online organizations indeed made quite a bit of progress and received huge impact via github, slack, and other platforms, they still have their own weak spot. 
+996.icu represents a type of new social organization – self-organized, open-sourced, anonymous, and decentralized. It’s a kind of collaboration that formed for a common goal (common within a certain period of time). Such reckless online organizations indeed made quite a bit of progress and received huge impact via github, slack, and other platforms, yet they still have their own weak spot. 
 
-** This weak spot is funding.** Anything gets complicated when it comes to money. Money could pollute the originally simple cause, but without money, many things could only stay on paper or PR without actions – no real problems could be solved. Just think about it, any worker that wants to sue a company that runs with 996-system per the Labor Law, he/she could hardly afford the cost for the attorney, not to mention the opportunity cost that this person could not land a job anywhere later. Therefore, certain amount of economic incentives is reasonable, especially to encourage the avant gardes. 
+**This weak spot is funding.** Anything gets complicated when it comes to money. Money could pollute the originally simple cause, but without money, many things could only stay on paper or PR without actions – no real problems could be solved. Just think about it, any worker that wants to sue a company that runs with 996-system per the Labor Law, he/she could hardly afford the cost for the attorney, not to mention the opportunity cost that this person could not land a job anywhere later. Therefore, certain amount of economic incentives is reasonable, especially to encourage the avant gardes. 
 
 So very few real-world options are left to us:
 1.	**Founding an NGO**, abide the rules for NGO in terms of receiving funding, auditing, and publishing financials.
